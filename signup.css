@@ -1,0 +1,868 @@
+/* Signup Page Specific Styles */
+
+/* Base styles for the signup form */
+.auth-container {
+    position: relative;
+    z-index: 1;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.auth-form {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.login-link {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #e5e5e5;
+}
+
+.auth-form a {
+    color: #ca8a04;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.auth-form a:hover {
+    color: #f59e0b;
+    text-decoration: underline;
+}
+
+/* Guest button styling */
+.guest-button {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Back link styling */
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+.back-link:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+
+/* Password hint styling */
+.password-hint {
+    display: block;
+    text-align: left;
+    font-size: 0.8rem;
+    color: #e5e5e5;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Input placeholder styling */
+::placeholder {
+    color: #999;
+    opacity: 0.7;
+}
+
+/* Media Queries for Signup Page */
+
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .auth-container {
+        padding: 0 15px;
+    }
+
+    .auth-form {
+        max-width: 280px;
+    }
+
+    .login-link {
+        font-size: 0.85rem;
+    }
+
+    /* Adjust vertical positioning */
+    .auth-container {
+        align-items: flex-start;
+        padding-top: 60px;
+    }
+
+    /* Make form more compact */
+    .input-group {
+        margin-bottom: 0.8rem;
+    }
+
+    .input-group label {
+        margin-bottom: 0.3rem;
+    }
+
+    /* Smaller divider */
+    .divider {
+        margin: 0.7rem 0;
+    }
+
+    /* Adjust back link */
+    .back-link {
+        top: 10px;
+        left: 10px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    /* Smaller password hint */
+    .password-hint {
+        font-size: 0.7rem;
+    }
+}
+
+/* Small Devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-form {
+        max-width: 300px;
+    }
+
+    /* Adjust vertical positioning */
+    .auth-container {
+        align-items: center;
+    }
+
+    .login-link {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust back link */
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Specific adjustment for 765px screen */
+@media (width: 765px) {
+    .auth-form {
+        max-width: 300px; /* Narrower width */
+        max-height: 85vh; /* Increased height to avoid cutting */
+        overflow-y: auto; /* Add scrolling if needed */
+        margin: 0 auto; /* Ensure centered */
+        border-radius: 12px; /* Smoother corners */
+    }
+
+    .auth-container {
+        align-items: center;
+        justify-content: center;
+        padding-top: 3vh; /* Position form higher on the page */
+        padding-bottom: 3vh; /* Add bottom padding */
+        padding-left: 10px; /* Add side padding */
+        padding-right: 10px; /* Add side padding */
+    }
+
+    /* Specific styling for form elements */
+    .input-group {
+        margin-bottom: 0.8rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.55rem; /* Further reduced padding */
+        height: 38px; /* Control input height */
+    }
+
+    /* Adjust back link */
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.3rem; /* Further reduced padding */
+        height: 40px; /* Control button height */
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.75rem;
+        margin-top: 3px; /* Further reduced margin */
+    }
+
+    /* Login link */
+    .login-link {
+        margin-top: 0.8rem; /* Further reduced margin */
+        font-size: 0.9rem; /* Smaller font */
+    }
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .auth-form {
+        max-width: 340px;
+    }
+
+    /* Add some subtle animation */
+    .auth-form {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Back link with hover effect */
+    .back-link {
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .back-link:hover {
+        transform: translateX(-3px);
+    }
+
+    /* Password hint styling */
+    .password-hint {
+        font-size: 0.85rem;
+    }
+}
+
+/* Large Devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .auth-form {
+        max-width: 360px;
+    }
+
+    /* Enhanced hover effects for larger screens */
+    .cta-button:hover,
+    .guest-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Animated back link */
+    .back-link {
+        transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+        transform: translateX(-5px);
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Extra Large Devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .auth-form {
+        max-width: 380px;
+    }
+
+    /* Larger spacing for comfort */
+    .input-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Enhanced visual effects */
+    .auth-form {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .auth-form:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Larger back link */
+    .back-link {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+
+    /* Enhanced password hint */
+    .password-hint {
+        margin-top: 8px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Specific adjustments for 320px screens */
+@media (width: 320px) {
+    .auth-form {
+        max-width: 250px;
+        padding: 0.9rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.7rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .input-group input {
+        padding: 0.45rem;
+        font-size: 0.85rem;
+        height: 34px;
+    }
+
+    /* Increase space between form elements and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.55rem 1.1rem;
+        font-size: 0.85rem;
+        height: 36px;
+        margin-top: 0.8rem; /* Add space above buttons */
+        margin-bottom: 0.8rem; /* Add space below buttons */
+    }
+
+    /* Center form in container */
+    .auth-container {
+        padding-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Minimal back link */
+    .back-link {
+        top: 8px;
+        left: 8px;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    /* Minimal password hint */
+    .password-hint {
+        font-size: 0.65rem;
+        margin-top: 2px;
+    }
+
+    /* Login link */
+    .login-link {
+        font-size: 0.8rem;
+        margin-top: 0.7rem;
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.7rem 0;
+        font-size: 0.8rem;
+    }
+}
+
+/* Specific adjustments for 375px screens (iPhone 6/7/8/X) */
+@media (width: 375px) {
+    .auth-form {
+        max-width: 280px;
+        padding: 1.1rem 1.1rem 1.5rem 1.1rem; /* More padding at bottom */
+        margin: 0 auto; /* Center horizontally */
+        border-radius: 10px; /* Smoother corners */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        position: absolute; /* Absolute positioning */
+        top: 50%; /* Position at 50% from top */
+        left: 50%; /* Position at 50% from left */
+        transform: translate(-50%, -50%); /* Center precisely */
+    }
+
+    .auth-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem; /* Increased spacing */
+        text-align: center; /* Ensure centered */
+    }
+
+    .input-group {
+        margin-bottom: 1.2rem; /* Increased spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem; /* Increased spacing */
+        display: block; /* Ensure proper spacing */
+    }
+
+    .input-group input {
+        padding: 0.55rem; /* Increased padding */
+        font-size: 0.9rem;
+        height: 38px; /* Increased height */
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+        margin-bottom: 0.5rem; /* Add space after inputs */
+    }
+
+    /* Increase space between form elements and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.2rem; /* Increased padding */
+        font-size: 0.9rem;
+        height: 40px; /* Increased height */
+        margin-top: 2.5rem; /* Greatly increased spacing above buttons */
+        margin-bottom: 2.5rem; /* Greatly increased spacing below buttons */
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    /* Center form in container */
+    .auth-container {
+        padding: 0; /* Remove all padding */
+        display: flex;
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        min-height: 100vh; /* Ensure full height */
+        position: relative; /* For absolute positioning of children */
+    }
+
+    /* Adjust back link */
+    .back-link {
+        top: 12px; /* Adjusted position */
+        left: 12px; /* Adjusted position */
+        font-size: 0.85rem; /* Increased font size */
+        padding: 7px 14px; /* Increased padding */
+        z-index: 20; /* Ensure it's above other elements */
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.75rem; /* Increased font size */
+        margin-top: 5px; /* Increased spacing */
+        display: block; /* Ensure proper spacing */
+    }
+
+    /* Login link */
+    .login-link {
+        font-size: 0.9rem; /* Increased font size */
+        margin-top: 2.5rem; /* Greatly increased spacing */
+        text-align: center; /* Ensure centered */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 2.5rem 0; /* Greatly increased spacing */
+        font-size: 0.85rem;
+        text-align: center; /* Ensure centered */
+    }
+
+    /* Ensure proper spacing for form elements */
+    .auth-form > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Specific adjustments for 425px screens */
+@media (width: 425px) {
+    .auth-form {
+        max-width: 300px;
+        padding: 1.1rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.9rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .input-group input {
+        padding: 0.55rem;
+        font-size: 0.9rem;
+        height: 38px;
+    }
+
+    /* Increase space between form elements and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.3rem;
+        font-size: 0.9rem;
+        height: 40px;
+        margin-top: 1rem; /* Add space above buttons */
+        margin-bottom: 1rem; /* Add space below buttons */
+    }
+
+    /* Center form in container */
+    .auth-container {
+        padding-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Adjust back link */
+    .back-link {
+        top: 12px;
+        left: 12px;
+        font-size: 0.85rem;
+        padding: 7px 14px;
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.75rem;
+        margin-top: 3px;
+    }
+
+    /* Login link */
+    .login-link {
+        font-size: 0.9rem;
+        margin-top: 0.9rem;
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.9rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+/* Additional specific screen size adjustments */
+
+/* 360px - Common mobile size */
+@media (width: 360px) {
+    .auth-form {
+        max-width: 280px;
+    }
+
+    .auth-container {
+        padding-top: 50px;
+    }
+
+    .back-link {
+        top: 12px;
+        left: 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* 375px - iPhone 6/7/8/X */
+@media (width: 375px) {
+    .auth-form {
+        max-width: 290px;
+    }
+
+    .auth-container {
+        padding-top: 55px;
+    }
+}
+
+/* 414px - iPhone Plus/Max models */
+@media (width: 414px) {
+    .auth-form {
+        max-width: 320px;
+    }
+
+    .auth-container {
+        padding-top: 60px;
+    }
+
+    .back-link {
+        font-size: 0.85rem;
+    }
+}
+
+/* 540px - Common small tablet size */
+@media (width: 540px) {
+    .auth-form {
+        max-width: 340px;
+    }
+
+    .auth-container {
+        align-items: center;
+    }
+
+    .back-link {
+        top: 20px;
+        left: 20px;
+    }
+}
+
+/* 768px - iPad and common tablet size */
+@media (width: 768px) {
+    .auth-form {
+        max-width: 290px; /* Further reduced width */
+        padding: 1.1rem; /* Further reduced padding */
+        margin: 0 auto; /* Ensure centered */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-container {
+        align-items: center;
+        justify-content: center;
+        padding-top: 2vh; /* Position form higher on the page */
+        padding-bottom: 2vh; /* Add bottom padding */
+        padding-left: 8px; /* Add side padding */
+        padding-right: 8px; /* Add side padding */
+    }
+
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+
+    /* Adjust form elements to fit without scrolling */
+    .auth-form h2 {
+        font-size: 1.4rem; /* Smaller heading */
+        margin-bottom: 0.9rem; /* Further reduced margin */
+    }
+
+    /* Specific styling for form elements */
+    .input-group {
+        margin-bottom: 0.7rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.5rem; /* Further reduced padding */
+        height: 36px; /* Smaller input height */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.6rem 1.2rem; /* Further reduced padding */
+        height: 38px; /* Smaller button height */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.75rem; /* Smaller font */
+        margin-top: 2px; /* Further reduced margin */
+    }
+
+    /* Login link */
+    .login-link {
+        margin-top: 0.7rem; /* Further reduced margin */
+        font-size: 0.85rem; /* Smaller font */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.7rem 0; /* Reduced margin */
+        font-size: 0.85rem; /* Smaller font */
+    }
+}
+
+/* 1024px - iPad Pro and common laptop size */
+@media (width: 1024px) {
+    .auth-form {
+        max-width: 310px; /* Further reduced width */
+        padding: 1.2rem; /* Further reduced padding */
+        margin: 0 auto; /* Ensure centered */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-form h2 {
+        font-size: 1.5rem; /* Smaller heading */
+        margin-bottom: 1rem; /* Further reduced margin */
+    }
+
+    .back-link {
+        top: 18px; /* Adjusted position */
+        left: 18px;
+        font-size: 0.85rem; /* Smaller font */
+        padding: 6px 14px; /* Reduced padding */
+    }
+
+    /* Enhanced hover effects - more subtle */
+    .auth-form {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .auth-form:hover {
+        transform: translateY(-2px); /* Minimal transform */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12); /* Lighter shadow */
+    }
+
+    /* Position form higher on the page */
+    .auth-container {
+        padding-top: 3vh;
+        padding-bottom: 3vh;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Adjust form elements */
+    .input-group {
+        margin-bottom: 0.9rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.55rem;
+        height: 38px; /* Control input height */
+        font-size: 0.95rem; /* Slightly smaller font */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.3rem;
+        height: 40px; /* Control button height */
+        font-size: 0.95rem; /* Slightly smaller font */
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.8rem;
+        margin-top: 2px; /* Further reduced margin */
+    }
+
+    /* Login link */
+    .login-link {
+        margin-top: 0.8rem; /* Reduced margin */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.8rem 0; /* Reduced margin */
+        font-size: 0.9rem; /* Smaller font */
+    }
+}
+
+/* 1440px - Large desktop screens */
+@media (width: 1440px) {
+    .auth-form {
+        max-width: 330px; /* Further reduced width */
+        padding: 1.3rem; /* Further reduced padding */
+        margin: 0 auto; /* Ensure centered */
+        border-radius: 12px; /* Smoother corners */
+    }
+
+    /* Position form higher on the page */
+    .auth-container {
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.6rem; /* Smaller heading */
+        margin-bottom: 1.1rem; /* Further reduced margin */
+    }
+
+    .back-link {
+        top: 20px;
+        left: 20px;
+        font-size: 0.9rem;
+        padding: 7px 16px;
+    }
+
+    /* Adjust form elements */
+    .input-group {
+        margin-bottom: 1rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.6rem;
+        height: 40px; /* Control input height */
+        font-size: 0.95rem; /* Slightly smaller font */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.7rem 1.4rem;
+        height: 42px; /* Control button height */
+        font-size: 0.95rem; /* Slightly smaller font */
+    }
+
+    /* Enhanced hover effects - more subtle */
+    .auth-form {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .auth-form:hover {
+        transform: translateY(-3px); /* Minimal transform */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Lighter shadow */
+    }
+
+    /* Password hint */
+    .password-hint {
+        font-size: 0.8rem;
+        margin-top: 3px; /* Reduced margin */
+    }
+
+    /* Login link */
+    .login-link {
+        margin-top: 0.9rem; /* Reduced margin */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.9rem 0; /* Reduced margin */
+        font-size: 0.9rem; /* Smaller font */
+    }
+}
+
+/* Orientation-specific adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .auth-container {
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+
+    .auth-form {
+        padding: 1rem;
+    }
+
+    .auth-form h2 {
+        margin-bottom: 0.8rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.6rem;
+    }
+
+    /* Adjust back link position for landscape */
+    .back-link {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+    }
+
+    /* Hide password hint in landscape on small heights */
+    .password-hint {
+        display: none;
+    }
+}

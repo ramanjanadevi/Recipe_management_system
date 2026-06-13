@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recipes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cursive-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        .recipe-card {
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        background-color 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(105, 61, 82, 0.07);
+            background-color: #ffffff;
+        }
+
+        .recipe-card:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: transform 0.1s;
+        }
+        .recipe-image-container {
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .recipe-image {
+            transition: transform 0.6s ease;
+        }
+
+        .recipe-card:hover .recipe-image {
+            transform: scale(1.08);
+        }
+        .btn-action {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-action:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .btn-action:hover:before {
+            left: 100%;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-animation {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes cardAppear {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .card-appear {
+            animation: cardAppear 0.5s forwards;
+        }
+        .staggered-appear {
+            opacity: 0;
+        }
+        .recipe-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .recipe-badge:hover {
+            transform: translateY(-2px);
+        }
+
+
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .featured-recipe {
+            animation: float 3s ease-in-out infinite;
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #693d52;
+        }
+        .custom-scrollbar {
+          overflow-y: scroll !important;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 10px;
+          background: #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #ff8c42;
+          border-radius: 10px;
+          border: 2px solid #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #e67e22;
+        }
+
+
+        .input-hover-effect:hover {
+          background-color: rgba(255, 140, 66, 0.05);
+          border-color: #ff8c42;
+        }
+
+        /* No loader CSS needed - using inline styles */
+
+        /* Shimmer effect for recipe cards */
+        .shimmer-card {
+            background: #f6f7f8;
+            background-image: linear-gradient(
+                to right,
+                #f6f7f8 0%,
+                #edeef1 20%,
+                #f6f7f8 40%,
+                #f6f7f8 100%
+            );
+            background-repeat: no-repeat;
+            background-size: 800px 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -468px 0;
+            }
+            100% {
+                background-position: 468px 0;
+            }
+        }
+
+        /* Pulse animation for loading text */
+        @keyframes pulse-text {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse-text 1.5s infinite;
+        }
+
+        .navbar-brand {
+                font-family: serif;
+                font-weight: bold;
+                color:  #f5b938!important;
+                font-size: 1.5rem;
+            }
+            .nav-link {
+                color: #1f2937 !important;
+                transition: color 0.15s ease-in-out;
+            }
+            .nav-link:hover {
+                color: #f5b938 !important;
+            }
+
+  </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow-sm py-4">
+        <div class="container">
+                            <a class="navbar-brand" href="yum.html">YUM LIBRARY</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-3 " href="yum.html"><b>HOME</b></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-3" href="add-recipe.html"><b>ADD RECIPES</b></a>
+                    </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="#" onclick="logout()"><b>LOGOUT</b></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 pt-20 pb-0">
+        <button
+            onclick="goBack()"
+            class="back-btn btn text-white px-6 py-2 mt-16 rounded-full font-medium"
+            style="background-color: #fc9f36; border-radius: 20px; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#e08b2a'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)';"
+            onmouseout="this.style.backgroundColor='#fc9f36'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+        >
+            ← Back to Home
+        </button>
+    </div>
+    <div class="container mx-auto px-4 py-12 ">
+        <h2 class="text-2xl text-center font-bold mb-8 animate__animated animate__fadeIn cursive-text text-gray-800">My Recipes</h2>
+
+        <!-- Absolutely Plain Text Loader -->
+        <div id="loader" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.9); z-index: 9999;">
+            <p style="font-size: 18px; color: #693d52; font-weight: 500;">Loading recipes...</p>
+        </div>
+
+        <div id="recipesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 hidden" style="display: none !important;">
+            <!-- Recipe cards will be dynamically inserted here with this structure: -->
+        </div>
+
+      <div id="editRecipeModal" class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden items-start justify-center overflow-y-auto backdrop-filter backdrop-blur-sm z-50">
+        <div class="modal-container py-8 px-4 w-full max-w-4xl mx-auto my-8">
+            <div class="bg-white rounded-xl shadow-xl p-6 w-full mx-auto modal-animation max-h-[85vh] overflow-y-auto">
+                <h3 class="text-lg font-bold mb-4 cursive-text text-gray-800 sticky top-0 bg-white pt-2 pb-4">Edit Recipe</h3>
+                <form id="editRecipeForm" class="space-y-4">
+                    <input type="hidden" id="recipeId" />
+                    <div>
+                        <label for="recipeName" class="block text-sm mb-1 text-gray-600">Recipe Name</label>
+                        <input type="text" id="recipeName" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" required />
+                    </div>
+                    <div>
+                        <label for="recipeDescription" class="block text-sm mb-1 text-gray-600">Description</label>
+                        <textarea id="recipeDescription" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" rows="4" required></textarea>
+                    </div>
+                    <div>
+                        <label for="recipeIngredients" class="block text-sm mb-1 text-gray-600">Ingredients</label>
+                        <textarea id="recipeIngredients" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" rows="4" required></textarea>
+                    </div>
+                    <div>
+                        <label for="recipeInstructions" class="block text-sm mb-1 text-gray-600">Instructions</label>
+                        <textarea id="recipeInstructions" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" rows="4" required></textarea>
+                    </div>
+                    <div>
+                        <label for="recipeImage" class="block text-sm mb-1 text-gray-600">Image URL</label>
+                        <input type="text" id="recipeImage" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" />
+                    </div>
+                    <div>
+                        <label for="recipeVideo" class="block text-sm mb-1 text-gray-600">Video URL</label>
+                        <input type="text" id="recipeVideo" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all" />
+                    </div>
+                    <div>
+                        <label for="recipeCategory" class="block text-sm mb-1 text-gray-600">Category</label>
+                        <select id="recipeCategory" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all">
+                            <option value="">Select Category</option>
+                            <option value="beverages">Beverages</option>
+                            <option value="biryani">Biryani</option>
+                            <option value="pizza">Pizza</option>
+                            <option value="burger">Burger</option>
+                            <option value="dessert">Desserts</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="pasta">Pasta</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-2 pt-4">
+                        <button type="button" onclick="closeEditModal()" class="btn-action w-full sm:w-auto bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">Cancel</button>
+                        <button type="submit" class="btn-action w-full sm:w-auto bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="myrecipes.js" defer></script>
+    </script>
+</body>
+</html>

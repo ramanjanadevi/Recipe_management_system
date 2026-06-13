@@ -1,0 +1,522 @@
+/* Login Page Specific Styles */
+
+/* Base styles for the login form */
+.auth-container {
+    position: relative;
+    z-index: 1;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.auth-form {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.auth-form p {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #e5e5e5;
+}
+
+.auth-form a {
+    color: #ca8a04;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.auth-form a:hover {
+    color: #f59e0b;
+    text-decoration: underline;
+}
+
+/* Back link styling */
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    z-index: 10;
+}
+
+.back-link:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+
+/* Input placeholder styling */
+::placeholder {
+    color: #999;
+    opacity: 0.7;
+}
+
+/* Media Queries for Login Page */
+
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .auth-form {
+        max-width: 280px;
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .auth-container {
+        align-items: flex-start;
+        padding-top: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .input-group {
+        margin-bottom: 0.8rem;
+    }
+
+    .input-group label {
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
+    }
+
+    .input-group input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        height: 36px;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        height: 38px;
+    }
+
+    .back-link {
+        top: 12px;
+        left: 12px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+/* Small Devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-form {
+        max-width: 300px;
+        padding: 1.3rem;
+    }
+
+    .auth-container {
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Specific adjustment for 765px screen */
+@media (width: 765px) {
+    .auth-form {
+        max-width: 290px;
+        padding: 1.1rem;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+
+    .auth-container {
+        align-items: center;
+        justify-content: center;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.9rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.7rem;
+    }
+
+    .input-group input {
+        padding: 0.5rem;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.2rem;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
+
+/* 768px - iPad and common tablet size */
+@media (width: 768px) {
+    .auth-form {
+        max-width: 290px;
+        padding: 1.1rem;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+
+    .auth-container {
+        align-items: center;
+        justify-content: center;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.9rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.7rem;
+    }
+
+    .input-group input {
+        padding: 0.5rem;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.2rem;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+
+    .back-link {
+        top: 15px;
+        left: 15px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
+
+/* 1024px - iPad Pro and common laptop size */
+@media (width: 1024px) {
+    .auth-form {
+        max-width: 310px;
+        padding: 1.2rem;
+        margin: 0 auto;
+        border-radius: 10px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .auth-container {
+        padding-top: 3vh;
+        padding-bottom: 3vh;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .input-group {
+        margin-bottom: 0.9rem;
+    }
+
+    .input-group input {
+        padding: 0.55rem;
+        height: 38px;
+        font-size: 0.95rem;
+    }
+
+    .cta-button {
+        padding: 0.65rem 1.3rem;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+
+    .back-link {
+        top: 18px;
+        left: 18px;
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+}
+
+/* 1440px - Large desktop screens */
+@media (width: 1440px) {
+    .auth-form {
+        max-width: 330px;
+        padding: 1.3rem;
+        margin: 0 auto;
+        border-radius: 12px;
+    }
+
+    .auth-container {
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.1rem;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group input {
+        padding: 0.6rem;
+        height: 40px;
+        font-size: 0.95rem;
+    }
+
+    .cta-button {
+        padding: 0.7rem 1.4rem;
+        height: 42px;
+        font-size: 0.95rem;
+    }
+
+    .back-link {
+        top: 20px;
+        left: 20px;
+        font-size: 0.9rem;
+        padding: 7px 16px;
+    }
+}
+
+/* Specific adjustments for 320px screens */
+@media (width: 320px) {
+    .auth-form {
+        max-width: 250px;
+        padding: 0.9rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.7rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .input-group input {
+        padding: 0.45rem;
+        font-size: 0.85rem;
+        height: 34px;
+    }
+
+    .cta-button {
+        padding: 0.55rem 1.1rem;
+        font-size: 0.85rem;
+        height: 36px;
+        margin-top: 0.8rem; /* Add space above button */
+    }
+
+    .auth-container {
+        padding-top: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .back-link {
+        top: 8px;
+        left: 8px;
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    /* Add space below button */
+    .auth-form p {
+        margin-top: 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Specific adjustments for 375px screens (iPhone 6/7/8/X) */
+@media (width: 375px) {
+    .auth-form {
+        max-width: 280px;
+        padding: 1.1rem 1.1rem 1.5rem 1.1rem; /* More padding at bottom */
+        margin: 0 auto; /* Center horizontally */
+        border-radius: 10px; /* Smoother corners */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        position: absolute; /* Absolute positioning */
+        top: 50%; /* Position at 50% from top */
+        left: 50%; /* Position at 50% from left */
+        transform: translate(-50%, -50%); /* Center precisely */
+    }
+
+    .auth-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem; /* Increased spacing */
+        text-align: center; /* Ensure centered */
+    }
+
+    .input-group {
+        margin-bottom: 1.2rem; /* Increased spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem; /* Increased spacing */
+        display: block; /* Ensure proper spacing */
+    }
+
+    .input-group input {
+        padding: 0.55rem; /* Increased padding */
+        font-size: 0.9rem;
+        height: 38px; /* Increased height */
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+        margin-bottom: 0.5rem; /* Add space after inputs */
+    }
+
+    .cta-button {
+        padding: 0.65rem 1.2rem; /* Increased padding */
+        font-size: 0.9rem;
+        height: 40px; /* Increased height */
+        margin-top: 2.5rem; /* Greatly increased spacing above button */
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    .auth-container {
+        padding: 0; /* Remove all padding */
+        display: flex;
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+        min-height: 100vh; /* Ensure full height */
+        position: relative; /* For absolute positioning of children */
+    }
+
+    .back-link {
+        top: 12px; /* Adjusted position */
+        left: 12px; /* Adjusted position */
+        font-size: 0.85rem; /* Increased font size */
+        padding: 7px 14px; /* Increased padding */
+        z-index: 20; /* Ensure it's above other elements */
+    }
+
+    /* Add space below button */
+    .auth-form p {
+        margin-top: 2.5rem; /* Greatly increased spacing */
+        font-size: 0.9rem;
+        text-align: center; /* Ensure centered */
+    }
+
+    /* Ensure proper spacing for form elements */
+    .auth-form > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Specific adjustments for 425px screens */
+@media (width: 425px) {
+    .auth-form {
+        max-width: 300px;
+        padding: 1.1rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.9rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .input-group input {
+        padding: 0.55rem;
+        font-size: 0.9rem;
+        height: 38px;
+    }
+
+    .cta-button {
+        padding: 0.65rem 1.3rem;
+        font-size: 0.9rem;
+        height: 40px;
+        margin-top: 1rem; /* Add space above button */
+    }
+
+    .auth-container {
+        padding-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .back-link {
+        top: 12px;
+        left: 12px;
+        font-size: 0.85rem;
+        padding: 7px 14px;
+    }
+
+    /* Add space below button */
+    .auth-form p {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+}

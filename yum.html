@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinch of Yum Clone</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-white">
+    <nav class="bg-white shadow-md fixed w-full z-50 py-4 animate__animated animate__slideInDown">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-serif font-bold text-yellow-600 hover-grow">YUM LIBRARY</span>
+                    </div>
+                </div>
+            <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">HOME</a>
+                    <a href="#about"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">ABOUT</a>
+                    <a href="myrecipes.html"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">MY
+                        RECIPES</a>
+                    <a href="add-recipe.html"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">ADD
+                        RECIPES</a>
+                    <a href="favorites.html"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">MY
+                        FAV ❤️</a>
+                    <button id="signout-btn"
+                        class="text-gray-800 hover:text-yellow-600 px-3 py-2 font-medium transition duration-150 ease-in-out hover-grow">LOGOUT</button>
+                </div>
+                <div class="flex md:hidden items-center">
+                    <button id="mobile-menu-button" type="button"
+                        class="text-gray-800 hover:text-yellow-600 focus:outline-none hover-grow"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="close-icon" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 animate__animated animate__fadeIn">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="block px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow">HOME</a>
+                <a href="#about"
+                    class="block px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow">ABOUT</a>
+                <a href="myrecipes.html"
+                    class="block px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow">MY
+                    RECIPES</a>
+                <a href="add-recipe.html"
+                    class="block px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow">ADD
+                    RECIPES</a>
+                <a href="favorites.html"
+                    class="block px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow">MY
+                    FAV ❤️</a>
+                <button id="mobile-signout-btn"
+                    class="block w-full text-left px-3 py-2 text-gray-800 font-medium hover:bg-yellow-50 hover:text-yellow-600 rounded-md hover-grow mt-2">LOGOUT</button>
+            </div>
+        </div>
+    </nav>
+    <div class="h-16"></div>
+    <div id="home" class="text-center py-12 recipe mt-16 animate__animated animate__fadeIn">
+        <h2 class="text-xl">
+            SIMPLE RECIPES MADE FOR
+            <span class="cursive-text text-[#693d52] hover-grow" style="color:#693d52;">real, actual, everyday
+                life</span>
+        </h2>
+    </div>
+    <div class="container mx-auto px-4 relative carousel-container animate__animated animate__fadeInUp">
+        <button class="carousel-button prev-button animate-pulse">❮</button>
+        <button class="carousel-button next-button animate-pulse">❯</button>
+        <div class="carousel flex gap-4 overflow-x-auto snap-x snap-mandatory">
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 snap-start hover-grow">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('beverages')">
+                    <img src="https://carst.com/wp-content/uploads/2024/01/colour-in-non-alcoholic-beverages.jpg"
+                        alt="Beverages Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Beverages</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 snap-start hover-grow">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('biryani')">
+                    <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Chicken-Biryani-Recipe.jpg"
+                        alt="Biryani" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Biryani</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 snap-start hover-grow">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('pizza')">
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/1b/3d/36/a0/fresh-hand-stretched.jpg"
+                        alt="Pizza Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Pizza</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 snap-start hover-grow">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('burger')">
+                    <img src="https://cdn.prod.website-files.com/631b4b4e277091ef01450237/65947cd2a2c28c35b5ca6fb1_Whopper%20w%20Cheese.png"
+                        alt="Burger Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Burger</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-3">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('dessert')">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2022/05/Chocolate-sandwich-cupcakes-4b30ada.jpg?quality=90&resize=556,505"
+                        alt="desserts Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Desserts</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-3">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('breakfast')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGzVRpDIkHKN1k8GKYS6u_5Q4P1nuhujZvfQ&s"
+                        alt="Breakfast" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Breakfast</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-3">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('pasta')">
+                    <img src="https://www.allrecipes.com/thmb/mvO1mRRH1zTz1SvbwBCTz78CRJI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/67700_RichPastaforthePoorKitchen_ddmfs_4x3_2284-220302ec8328442096df370dede357d7.jpg"
+                        alt="Pasta Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">Pasta</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-3">
+                <div class="relative group cursor-pointer" onclick="navigateToCategory('others')">
+                    <img src="https://media.istockphoto.com/id/1317255793/photo/rijsttafel-nusantara-an-elaborate-meal-of-indonesian-dishes.jpg?s=612x612&w=0&k=20&c=F_CtvP1w7CMbth0vyT-aqzkB3D5TqZbnwgLc7tbpnsc="
+                        alt="other Recipe" class="w-full h-72 object-cover rounded-lg" />
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-[#f4b266] text-white px-6 py-2 rounded">others</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <section id="about" class="mt-16 gradient-bg py-16 animate__animated animate__fadeIn">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-8">About YUM LIBRARY</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="about-text">
+                    <p class="text-gray-700 mb-4">
+                        Welcome to <span class="font-bold text-yellow-600">YUM LIBRARY</span>, your go-to platform for
+                        discovering, sharing, and celebrating delicious recipes from around the world!
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        At YUM LIBRARY, we believe that cooking is more than just a necessity—it's a way to connect,
+                        create, and share joy. Whether you're a seasoned chef or a beginner in the kitchen, our platform
+                        is designed to inspire and empower you to explore new flavors and techniques.
+                    </p>
+                    <p class="text-gray-700 mb-4">
+                        Join our community and start sharing your favorite recipes today!
+                    </p>
+
+                </div>
+                <div class="about-image hover-grow">
+                    <img src="https://img.freepik.com/free-photo/woman-her-kitchen-surrounded-by-fresh-ingredients-expertly-flips-vegetables-wok-delicious-stir-fry_73899-27528.jpg?semt=ais_hybrid"
+                        alt="About YUM LIBRARY" class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-header">
+                    <h2>Contact Us</h2>
+                    <p>We'd love to hear from you! Here's how you can reach us.</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">✉</div>
+                        <div class="contact-detail">
+                            <h3>Email Address</h3>
+                            <p>yumlibrary@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-detail">
+                            <h3>Our Location</h3>
+                            <p>KPHB,HYD</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon" >📞</div>
+                        <div class="contact-detail">
+                            <h3>Phone Number</h3>
+                            <p>9876543210</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🍴</div>
+                        <div class="contact-detail">
+                            <h3>Submit a Recipe</h3>
+                            <p>Share your favorite recipes with us!</p>
+                            <button id="learn"><a href="add-recipe.html" id="submit1">Learn More</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<footer class="animate__animated animate__fadeInUp">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YumLibrary</h3>
+                    <p>We're all about real food for real people. Simple recipes made with fresh ingredients that bring
+                        joy to your kitchen.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>yumlibrary@gmail.com</p>
+                    <p>KPHB, Hyderabad</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 YumLibrary. All rights reserved.</p>
+            </div>
+        </div>
+ </footer>
+ <script src="yum.js" defer></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1uHjz6cse2smLJXvoqItgJfx7GxbOm0",
+            authDomain: "recipe-management-system-bf5a1.firebaseapp.com",
+            projectId: "recipe-management-system-bf5a1",
+            storageBucket: "recipe-management-system-bf5a1.firebasestorage.app",
+            messagingSenderId: "299256818769",
+            appId: "1:299256818769:web:3201aa5d4830db53c25c70"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Check authentication state
+        auth.onAuthStateChanged(function(user) {
+            if (!user) {
+                // User is not signed in, redirect to login
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

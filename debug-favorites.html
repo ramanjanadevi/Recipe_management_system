@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Favorites</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .favorite-item { margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 3px; }
+        button { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .clear-btn { background: #dc3545; }
+        .clear-btn:hover { background: #c82333; }
+    </style>
+</head>
+<body>
+    <h1>Favorites Debug Page</h1>
+    
+    <div class="debug-section">
+        <h2>Current Favorites in localStorage</h2>
+        <div id="currentFavorites"></div>
+        <button onclick="refreshFavorites()">Refresh</button>
+        <button class="clear-btn" onclick="clearFavorites()">Clear All Favorites</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Test Adding a Favorite</h2>
+        <button onclick="addTestFavorite()">Add Test Recipe to Favorites</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>localStorage Info</h2>
+        <div id="localStorageInfo"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Navigation</h2>
+        <a href="index.html"><button>Go to Home</button></a>
+        <a href="category-recipes.html"><button>Go to Category Recipes</button></a>
+        <a href="favorites.html"><button>Go to Favorites Page</button></a>
+    </div>
+
+    <script>
+        function refreshFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            const container = document.getElementById('currentFavorites');
+            
+            if (favorites.length === 0) {
+                container.innerHTML = '<p>No favorites found in localStorage</p>';
+            } else {
+                container.innerHTML = favorites.map((recipe, index) => `
+                    <div class="favorite-item">
+                        <strong>${index + 1}. ${recipe.name}</strong><br>
+                        <small>ID: ${recipe.id}</small><br>
+                        <small>Category: ${recipe.category}</small><br>
+                        <button onclick="removeFavorite('${recipe.id}')">Remove</button>
+                    </div>
+                `).join('');
+            }
+            
+            // Update localStorage info
+            updateLocalStorageInfo();
+        }
+        
+        function addTestFavorite() {
+            const testRecipe = {
+                id: 'test-' + Date.now(),
+                name: 'Test Recipe ' + new Date().toLocaleTimeString(),
+                category: 'Test Category',
+                description: 'This is a test recipe for debugging purposes.',
+                image: 'https://via.placeholder.com/300x200?text=Test+Recipe'
+            };
+            
+            let favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            favorites.push(testRecipe);
+            localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+            
+            Swal.fire({
+                title: 'Test Recipe Added!',
+                text: 'A test recipe has been added to favorites.',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+            
+            refreshFavorites();
+        }
+        
+        function removeFavorite(recipeId) {
+            let favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            favorites = favorites.filter(recipe => recipe.id !== recipeId);
+            localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+            
+            Swal.fire({
+                title: 'Removed!',
+                text: 'Recipe removed from favorites.',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            
+            refreshFavorites();
+        }
+        
+        function clearFavorites() {
+            Swal.fire({
+                title: 'Clear All Favorites?',
+                text: 'This will remove all favorites from localStorage.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, clear all!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('favoriteRecipes');
+                    Swal.fire({
+                        title: 'Cleared!',
+                        text: 'All favorites have been removed.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    refreshFavorites();
+                }
+            });
+        }
+        
+        function updateLocalStorageInfo() {
+            const container = document.getElementById('localStorageInfo');
+            const favorites = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+            
+            container.innerHTML = `
+                <p><strong>Total favorites:</strong> ${favorites.length}</p>
+                <p><strong>localStorage key:</strong> favoriteRecipes</p>
+                <p><strong>Raw localStorage value:</strong></p>
+                <pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto;">${localStorage.getItem('favoriteRecipes') || '[]'}</pre>
+            `;
+        }
+        
+        // Initialize page
+        refreshFavorites();
+    </script>
+</body>
+</html>

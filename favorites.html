@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Recipes - Pinch of Yum</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+
+        .cursive-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        .navbar-brand {
+                font-family: serif;
+                font-weight: bold;
+                color: #ca8a04 !important;
+                font-size: 1.5rem;
+            }
+            .nav-link {
+                color: #1f2937 !important;
+                transition: color 0.15s ease-in-out;
+            }
+            .nav-link:hover {
+                color: #ca8a04 !important;
+            }
+            .navbar {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        .nav-item {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Specific fix for 768px screens */
+        @media only screen and (width: 768px) {
+            /* Fix navbar structure */
+            .navbar-nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            /* Adjust nav items */
+            .nav-item {
+                padding: 0 0.5rem;
+                margin: 0 0.25rem;
+            }
+
+            /* Adjust nav links */
+            .nav-link {
+                font-size: 0.9rem !important;
+                padding: 0.4rem 0.6rem !important;
+            }
+
+            /* Ensure navbar is visible */
+            .navbar {
+                background-color: white !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            /* Fix brand */
+            .navbar-brand {
+                font-size: 1.4rem !important;
+            }
+        }
+        #favoritesGrid{
+            width: 90%;
+            height: 60%;
+            border-radius:30px;
+        }
+        /* Add these styles to your CSS */
+.recipe-card {
+    width: 90%;
+    height:450px;
+    transition: transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card .h-48 {
+    height: 12rem; /* Fixed height for all images */
+    width: 100%;
+    position: relative;
+}
+
+.recipe-card img {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    object-fit: cover; /* This ensures the image covers the area without distortion */
+    object-position: center; /* Centers the image */
+}
+
+/* Ensure cards have the same height */
+#favoritesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    #favoritesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .recipe-card {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+/* Add these animation styles to your CSS */
+.recipe-card {
+    width: 100%;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    opacity: 1;
+    animation: fadeIn 0.9s ease-out;
+}
+
+/* Fade in animation when cards load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effects */
+.recipe-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Image zoom effect on hover */
+.recipe-card .image-container {
+    height: 12rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.recipe-card .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
+.recipe-card:hover .image-container img {
+    transform: scale(1.1);
+}
+
+/* Button animation */
+.recipe-card button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-card button:hover {
+    transform: translateY(-2px);
+}
+
+.recipe-card button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.recipe-card button:hover::after {
+    left: 100%;
+}
+
+/* Staggered loading for multiple cards */
+#favoritesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+#favoritesGrid .recipe-card:nth-child(1) { animation-delay: 0.1s; }
+#favoritesGrid .recipe-card:nth-child(2) { animation-delay: 0.2s; }
+#favoritesGrid .recipe-card:nth-child(3) { animation-delay: 0.3s; }
+#favoritesGrid .recipe-card:nth-child(4) { animation-delay: 0.4s; }
+#favoritesGrid .recipe-card:nth-child(5) { animation-delay: 0.5s; }
+#favoritesGrid .recipe-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Media query for 320px screens */
+@media (width: 320px) {
+    /* Adjust the navbar */
+    .navbar {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .nav-item {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem !important;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    /* Adjust the favorites grid */
+    #favoritesGrid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    /* Adjust recipe cards */
+    .recipe-card {
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+        margin: 0 auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-card .image-container {
+        height: 10rem;
+    }
+
+    /* Adjust text sizes */
+    .recipe-card h3 {
+        font-size: 1rem;
+    }
+
+    .recipe-card p {
+        font-size: 0.85rem;
+    }
+
+    /* Adjust buttons */
+    .recipe-card button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    /* Adjust back button */
+    .back-btn {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.85rem !important;
+        margin-top: 4rem !important;
+    }
+
+    /* Adjust page title */
+    .text-3xl {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust container padding */
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    /* Adjust top padding to account for fixed navbar */
+    .pt-20 {
+        padding-top: 5rem;
+    }
+}
+
+/* Media query for 375px screens */
+@media (width: 375px) {
+    /* Adjust the navbar */
+    .navbar {
+        padding-top: 0.85rem;
+        padding-bottom: 0.85rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .nav-item {
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.6rem !important;
+    }
+
+    .navbar-toggler {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust the favorites grid */
+    #favoritesGrid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        width: 100%;
+    }
+
+    /* Adjust recipe cards */
+    .recipe-card {
+        width: 100%;
+        height: auto;
+        max-width: 320px;
+        margin: 0 auto;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-card .image-container {
+        height: 11rem;
+    }
+
+    /* Adjust text sizes */
+    .recipe-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .recipe-card p {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust buttons */
+    .recipe-card button {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust back button */
+    .back-btn {
+        padding: 0.45rem 0.9rem !important;
+        font-size: 0.9rem !important;
+        margin-top: 4.5rem !important;
+    }
+
+    /* Adjust page title */
+    .text-3xl {
+        font-size: 1.6rem;
+    }
+
+    /* Adjust container padding */
+    .container {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+    }
+
+    /* Adjust top padding to account for fixed navbar */
+    .pt-20 {
+        padding-top: 5.5rem;
+    }
+}
+
+/* Media query for 425px screens */
+@media (width: 425px) {
+    /* Adjust the navbar */
+    .navbar {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    .nav-item {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.7rem !important;
+    }
+
+    /* Adjust the favorites grid */
+    #favoritesGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 95%;
+    }
+
+    /* Adjust recipe cards */
+    .recipe-card {
+        width: 100%;
+        height: auto;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .recipe-card .image-container {
+        height: 12rem;
+    }
+
+    /* Adjust text sizes */
+    .recipe-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .recipe-card p {
+        font-size: 0.95rem;
+    }
+
+    /* Adjust buttons */
+    .recipe-card button {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    /* Adjust back button */
+    .back-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.95rem !important;
+        margin-top: 5rem !important;
+    }
+
+    /* Adjust page title */
+    .text-3xl {
+        font-size: 1.8rem;
+    }
+
+    /* Adjust container padding */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Adjust top padding to account for fixed navbar */
+    .pt-20 {
+        padding-top: 6rem;
+    }
+}
+    </style>
+</head>
+<body class="bg-white">
+    <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow-sm py-4">
+        <div class="container">
+
+                            <a class="navbar-brand" href="yum.html">YUM LIBRARY</a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav" id="mainNav">
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-2" href="yum.html">HOME</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-2" href="myrecipes.html">MY RECIPES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-2" href="add-recipe.html">ADD RECIPES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-2" href="favorites.html" style="color: #ca8a04 !important; font-weight: bold;">MY FAV ❤️</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium px-2" href="#" onclick="logout()">LOGOUT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Inline styles for 768px screens -->
+    <style>
+        @media only screen and (width: 768px) {
+            /* Fix navbar structure */
+            #mainNav {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                justify-content: flex-end !important;
+                align-items: center !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: calc(100% - 10px) !important;
+            }
+
+            /* Adjust nav items */
+            #mainNav .nav-item {
+                margin: 0 0.1rem !important;
+                padding: 0 !important;
+            }
+
+            /* Ensure nav items are properly distributed */
+            #mainNav {
+                justify-content: flex-end !important;
+                margin-left: auto !important;
+            }
+
+            /* Specific adjustments for longer menu items */
+            #mainNav .nav-item:nth-child(2) .nav-link,
+            #mainNav .nav-item:nth-child(3) .nav-link,
+            #mainNav .nav-item:nth-child(4) .nav-link {
+                letter-spacing: -0.04em !important;
+                font-size: 0.78rem !important;
+            }
+
+            /* Adjust nav links */
+            #mainNav .nav-link {
+                font-size: 0.8rem !important;
+                padding: 0.2rem 0.35rem !important;
+                white-space: nowrap !important;
+                letter-spacing: -0.02em !important;
+            }
+
+            /* Ensure navbar is visible */
+            .navbar {
+                background-color: white !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+            }
+
+            /* Fix brand */
+            .navbar-brand {
+                font-size: 1.1rem !important;
+                color: #ca8a04 !important;
+                font-weight: bold !important;
+                margin-right: 0.2rem !important;
+                padding-right: 0 !important;
+                letter-spacing: -0.02em !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* Fix collapsed navbar */
+            .navbar-collapse.show #mainNav,
+            .navbar-collapse.collapsing #mainNav {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                background-color: white !important;
+                padding: 0.5rem !important;
+                border-radius: 0.5rem !important;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            }
+
+            /* Fix container */
+            .navbar > .container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                padding-left: 0.2rem !important;
+                padding-right: 0.2rem !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            /* Adjust navbar collapse */
+            .navbar-collapse {
+                flex-grow: 1 !important;
+                flex-basis: 0 !important;
+                align-items: center !important;
+                margin-left: 0.2rem !important;
+            }
+
+            /* Fix toggler */
+            .navbar-toggler {
+                padding: 0.4rem 0.6rem !important;
+                font-size: 1rem !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
+
+
+<div class="container mx-auto px-4 pt-20 pb-0">
+    <button
+        onclick="goBack()"
+        class="back-btn btn text-white px-6 py-2 mt-16 rounded-full font-medium"
+        style="background-color: #fc9f36; border-radius: 20px; transition: all 0.3s ease;"
+        onmouseover="this.style.backgroundColor='#e08b2a'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)';"
+        onmouseout="this.style.backgroundColor='#fc9f36'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+    >
+        ← Back to Home
+    </button>
+</div>
+
+        </div>
+        <div id="recipeDetails"></div>
+
+        <div class="text-center py-8">
+            <h2 class="text-3xl">
+                <span class="cursive-text text-[#693d52]">My Favorite Recipes</span>
+            </h2>
+        </div>
+
+
+    <div class="container mx-auto px-4 pb-16 justify-center items-center">
+            <div id="favoritesGrid" class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] lg:grid-cols-[1.5fr_1fr_1fr] gap-6">
+
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script src="favorites.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1uHjz6cse2smLJXvoqItgJfx7GxbOm0",
+            authDomain: "recipe-management-system-bf5a1.firebaseapp.com",
+            projectId: "recipe-management-system-bf5a1",
+            storageBucket: "recipe-management-system-bf5a1.firebasestorage.app",
+            messagingSenderId: "299256818769",
+            appId: "1:299256818769:web:3201aa5d4830db53c25c70"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Check authentication state
+        auth.onAuthStateChanged(function(user) {
+            if (!user) {
+                // User is not signed in, redirect to login
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

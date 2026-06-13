@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Recipes - Pinch of Yum</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+
+        .cursive-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+
+
+
+        /* Ensure consistent image size for all recipe cards */
+        .recipe-card img {
+    width: 100%; /* Ensure the image takes up the full width of the card */
+    height: 200px; /* Set a fixed height for all images */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire space */
+    border-radius: 8px 8px 0 0; /* Add rounded corners to the top of the image */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth transition with bounce effect */
+}
+
+/* Recipe card styling with enhanced animations */
+.recipe-card {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateZ(0); /* Hardware acceleration */
+    backface-visibility: hidden; /* Prevent flickering on some browsers */
+    animation: cardAppear 0.6s ease-out forwards;
+}
+
+/* Staggered appearance animation for cards */
+@keyframes cardAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Apply staggered delay based on card position */
+.recipe-card:nth-child(1) { animation-delay: 0.1s; }
+.recipe-card:nth-child(2) { animation-delay: 0.2s; }
+.recipe-card:nth-child(3) { animation-delay: 0.3s; }
+.recipe-card:nth-child(4) { animation-delay: 0.4s; }
+.recipe-card:nth-child(5) { animation-delay: 0.5s; }
+.recipe-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Hover effects with multiple transforms */
+.recipe-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Image zoom effect on hover */
+.recipe-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.05);
+}
+
+/* Pulse animation for featured cards */
+@keyframes pulseShadow {
+    0% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 8px 24px rgba(252, 159, 54, 0.3); }
+    100% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+}
+
+.recipe-card.featured {
+    animation: pulseShadow 3s infinite ease-in-out;
+    border: 2px solid transparent;
+    background-image: linear-gradient(white, white),
+                     linear-gradient(135deg, #fc9f36, #e08b2a);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+/* Add a sheen effect on hover */
+.recipe-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.8s ease;
+}
+
+.recipe-card:hover::after {
+    left: 100%;
+}
+
+/* Click animation */
+.recipe-card:active {
+    transform: translateY(-3px) scale(0.98);
+    transition: transform 0.1s;
+}
+
+/* Explore button styling */
+.explore-btn {
+    background-color:#ff8c42;
+    transition: background-color 0.3s ease;
+    border-radius: 9999px; /* Fully rounded button */
+    padding: 0.5rem 1.5rem; /* Adjust padding for better appearance */
+    font-weight: bold;
+}
+
+.explore-btn:hover {
+    background-color: #645b63;
+}
+/* Center the search bar */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35vh;
+    padding: 0 20px;
+}
+
+/* Search bar styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px; /* Reduced width for the search bar */
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Input field styling */
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+/* Search button styling */
+.search-button {
+    padding: 12px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #f4b266;
+}
+
+/* Search icon styling */
+.search-icon {
+    width: 24px;
+    height: 24px;
+    color: #4a5568;
+}
+
+
+
+
+
+            .navbar-brand {
+                font-family: serif;
+                font-weight: bold;
+                color: #ca8a04 !important; /* Bootstrap equivalent of yellow-600 */
+                font-size: 1.5rem;
+            }
+            .nav-link {
+                color: #1f2937 !important; /* Bootstrap equivalent of gray-800 */
+                transition: color 0.15s ease-in-out;
+            }
+            .nav-link:hover {
+                color: #ca8a04 !important; /* Bootstrap equivalent of yellow-600 */
+            }
+
+            /* No loader CSS needed - using inline styles */
+
+            /* Shimmer effect for recipe cards */
+            .shimmer-card {
+                background: #f6f7f8;
+                background-image: linear-gradient(
+                    to right,
+                    #f6f7f8 0%,
+                    #edeef1 20%,
+                    #f6f7f8 40%,
+                    #f6f7f8 100%
+                );
+                background-repeat: no-repeat;
+                background-size: 800px 100%;
+                animation: shimmer 1.5s infinite linear;
+            }
+
+            @keyframes shimmer {
+                0% {
+                    background-position: -468px 0;
+                }
+                100% {
+                    background-position: 468px 0;
+                }
+            }
+
+            /* Pulse animation for loading text */
+            @keyframes pulse-text {
+                0%, 100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+            }
+
+            .animate-pulse {
+                animation: pulse-text 1.5s infinite;
+            }
+        </style>
+
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow-sm py-4">
+            <div class="container">
+                <!-- Logo and Brand -->
+                <a class="navbar-brand" href="yum.html">YUM LIBRARY</a>
+
+                <!-- Mobile menu button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="yum.html">HOME</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="myrecipes.html">MY RECIPES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="add-recipe.html">ADD RECIPES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium px-3" href="favorites.html">MY FAV ❤️</a>
+                            <li class="nav-item">
+                                <a class="nav-link fw-medium px-3" href="#" onclick="logout()">LOGOUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+      <!-- Reduced spacing for back button container -->
+<div class="container mx-auto px-4 pt-16 pb-0 mt-12">
+    <button
+        onclick="goBack()"
+        class="back-btn btn text-white px-6 py-2 rounded-full font-medium"
+        style="background-color: #fc9f36; border-radius: 20px; transition: all 0.3s ease;"
+        onmouseover="this.style.backgroundColor='#e08b2a'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)';"
+        onmouseout="this.style.backgroundColor='#fc9f36'; this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+    >
+        ← Back to Home
+    </button>
+</div>
+
+<!-- Reduced height for search container -->
+<div class="search-container" style="height: 15vh;">
+    <div class="search-bar">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search recipes..."
+            class="search-input"
+        />
+        <button id="searchButton" onclick="searchRecipes()" class="search-button">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </button>
+    </div>
+</div>
+
+<!-- Reduced padding for category title -->
+<div class="text-center py-2">
+    <h2 class="text-3xl">
+        <span id="categoryTitle" class="cursive-text text-[#693d52]">Category Recipes</span>
+    </h2>
+</div>
+
+<!-- Absolutely Plain Text Loader -->
+<div id="loader" style="display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255, 255, 255, 0.9); z-index: 9999;">
+    <p style="font-size: 18px; color: #693d52; font-weight: 500;">Loading recipes...</p>
+</div>
+
+<!-- Recipe Grid with reduced top padding -->
+<div class="container mx-auto px-4 pb-12 pt-2">
+    <div id="recipeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style="display: none !important;">
+        <!-- Recipe cards will be dynamically inserted here -->
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include JavaScript as a module -->
+    <script type="module" src="category-recipes.js"></script>
+</body>
+</html>
+
+
+
+

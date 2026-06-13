@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Culinary Canvas</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <style>
+        /* Direct styles for 375px screens */
+        @media only screen and (width: 375px) {
+            .auth-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 0;
+            }
+
+            .auth-form {
+                max-width: 280px;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .auth-form h2 {
+                margin-bottom: 25px;
+                text-align: center;
+            }
+
+            .input-group {
+                margin-bottom: 20px;
+            }
+
+            .cta-button {
+                margin-top: 40px !important;
+                height: 40px;
+            }
+
+            .auth-form p {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <form class="auth-form" id="loginForm" style="max-width: 280px; margin: 0 auto;">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="loginEmail"><b>Email</b></label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="loginPassword"><b>Password</b></label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <div style="margin-top: 40px;">
+                <button type="submit" class="cta-button" style="width: 100%; height: 40px;">Login</button>
+            </div>
+            <p style="margin-top: 40px; text-align: center;">Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </form>
+    </div>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1uHjz6cse2smLJXvoqItgJfx7GxbOm0",
+            authDomain: "recipe-management-system-bf5a1.firebaseapp.com",
+            projectId: "recipe-management-system-bf5a1",
+            storageBucket: "recipe-management-system-bf5a1.firebasestorage.app",
+            messagingSenderId: "299256818769",
+            appId: "1:299256818769:web:3201aa5d4830db53c25c70"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    return db.collection('users').doc(userCredential.user.uid).get();
+                })
+                .then((doc) => {
+                    Swal.fire({
+                        title: "Login Successful!",
+                        text: `Welcome back, ${doc.data().name}!`,
+                        icon: "success",
+                        confirmButtonColor: "#ff6b6b"
+                    }).then(() => {
+                        window.location.href = 'yum.html';
+                    });
+                })
+                .catch((error) => {
+
+                    Swal.fire({
+                        title: "Login Error",
+                        text: error.message,
+                        icon: "error",
+                        confirmButtonColor: "#ff6b6b"
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>

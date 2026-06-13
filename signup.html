@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Culinary Canvas</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="signup.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <form class="auth-form" id="signupForm">
+            <h2>Create Account</h2>
+            <div class="input-group">
+                <label for="signupName"><b>Full Name</b></label>
+                <input type="text" id="signupName" placeholder="Enter your full name" required>
+            </div>
+            <div class="input-group">
+                <label for="signupEmail"><b>Email</b></label>
+                <input type="email" id="signupEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="signupPassword"><b>Password</b></label>
+                <input type="password" id="signupPassword" placeholder="Create a password" required>
+                <small class="password-hint">Password should be at least 6 characters</small>
+            </div>
+            <button type="submit" class="cta-button">Sign Up</button>
+            <div class="divider">OR</div>
+            <button type="button" id="guestLoginBtn" class="guest-button">Continue as Guest</button>
+            <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCM1uHjz6cse2smLJXvoqItgJfx7GxbOm0",
+            authDomain: "recipe-management-system-bf5a1.firebaseapp.com",
+            projectId: "recipe-management-system-bf5a1",
+            storageBucket: "recipe-management-system-bf5a1.firebasestorage.app",
+            messagingSenderId: "299256818769",
+            appId: "1:299256818769:web:3201aa5d4830db53c25c70"
+        };
+
+
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Handle regular signup
+        document.getElementById('signupForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+
+                    return db.collection('users').doc(user.uid).set({
+                        name: name,
+                        email: email,
+                        password: password,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }).then(() => {
+                    Swal.fire({
+                        title: "Account Created!",
+                        text: "Your account has been successfully created.",
+                        icon: "success",
+                        confirmButtonColor: "#ff6b6b"
+                    }).then(() => {
+                        window.location.href = 'login.html';
+                    });
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: "Sign Up Error",
+                        text: error.message,
+                        icon: "error",
+                        confirmButtonColor: "#ff6b6b"
+                    });
+                });
+        });
+
+        // Handle guest login
+        document.getElementById('guestLoginBtn').addEventListener('click', function() {
+            // Use Firebase anonymous authentication
+            auth.signInAnonymously()
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    
+                    // Generate a random guest name for better identification
+                    const guestName = "Guest_" + Math.floor(Math.random() * 10000);
+
+                    // Create a guest user profile in Firestore with proper fields
+                    return db.collection('users').doc(user.uid).set({
+                        name: guestName,
+                        email: "guest@example.com",
+                        isGuest: true,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                })
+                .then(() => {
+                    Swal.fire({
+                        title: "Welcome, Guest!",
+                        text: "You are now logged in as a guest. You can browse recipes, add feedback, and explore the site. Note that your data won't be saved permanently.",
+                        icon: "success",
+                        confirmButtonColor: "#ff6b6b"
+                    }).then(() => {
+                        window.location.href = 'yum.html';
+                    });
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: "Guest Login Error",
+                        text: error.message,
+                        icon: "error",
+                        confirmButtonColor: "#ff6b6b"
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe - Culinary Canvas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Custom hover effects */
+        .hover-scale:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="add-recipe">
+        <!-- Navbar -->
+        <nav class="bg-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-yellow-500">YUM LIBRARY</div>
+                <div class="space-x-4">
+                    <a href="yum.html" class="text-gray-700 hover:text-orange-500 transition-colors duration-300">Home</a>
+                    <a href="#" onclick="logout()" class="text-gray-700 hover:text-orange-500 transition-colors duration-300">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Form Container -->
+        <div class="container mx-auto px-4 py-8 animate-fade-in">
+            <form id="addRecipeForm" class="bg-white shadow-lg rounded-lg p-8 hover-scale transition-transform duration-300">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Add New Recipe</h2>
+
+                <!-- Recipe Name -->
+                <div class="mb-6">
+                    <label for="recipeName" class="block text-gray-700 font-medium mb-2">Recipe Name</label>
+                    <input type="text" id="recipeName" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                </div>
+
+                <!-- Description -->
+                <div class="mb-6">
+                    <label for="recipeDescription" class="block text-gray-700 font-medium mb-2">Description</label>
+                    <textarea id="recipeDescription" required
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all min-h-[120px]"></textarea>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="mb-6">
+                    <label for="recipeIngredients" class="block text-gray-700 font-medium mb-2">Ingredients</label>
+                    <textarea id="recipeIngredients" required
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all min-h-[120px]"></textarea>
+                </div>
+
+                <!-- Instructions -->
+                <div class="mb-6">
+                    <label for="recipeInstructions" class="block text-gray-700 font-medium mb-2">Instructions</label>
+                    <textarea id="recipeInstructions" required
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all min-h-[120px]"></textarea>
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-6">
+                    <label for="recipeImage" class="block text-gray-700 font-medium mb-2">Image URL</label>
+                    <input type="text" id="recipeImage" placeholder="Enter image URL"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                </div>
+
+                <!-- Video URL -->
+                <div class="mb-6">
+                    <label for="recipeVideo" class="block text-gray-700 font-medium mb-2">Video URL (Optional)</label>
+                    <input type="text" id="recipeVideo" placeholder="Enter YouTube or other video URL"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                </div>
+
+                <!-- Category -->
+                <div class="mb-6">
+                    <label for="recipeCategory" class="block text-gray-700 font-medium mb-2">Category</label>
+                    <select id="recipeCategory" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="biryani">Biryani</option>
+                        <option value="pizza">Pizza</option>
+                        <option value="burger">Burger</option>
+                        <option value="dessert">Desserts</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="pasta">Pasta</option>
+                        <option value="others">Others</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transition-colors duration-300">
+                    Add Recipe
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="add-recipe.js"></script>
+</body>
+</html>

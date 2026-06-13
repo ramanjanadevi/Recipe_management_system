@@ -1,1 +1,3 @@
-# Recipe_management_system
+# Recipe-management-application
+created using firebase and html and css
+main page is index.html

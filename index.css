@@ -1,0 +1,844 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.landing {
+    background: url("https://cdn.pixabay.com/photo/2017/02/15/10/39/salad-2068220_1280.jpg") center/cover;
+    min-height: 100vh;
+    color: white;
+}
+
+.hero {
+
+    position: relative;
+    text-align: center;
+    padding: 50px;
+}
+
+.logo {
+    color: #ca8a04;
+    font-size: 1.5rem;
+}
+
+.nav {
+    padding: 1rem 2rem;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.nav-links a {
+    margin-left: 2rem;
+    color: gray;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+.nav-links a:hover {
+    color: #ca8a04;
+
+}
+
+.hero-content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    gap: 40px;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 4rem;
+}
+
+.cta-button {
+    padding: 0.8rem 1.5rem; /* Reduced padding */
+    font-size: 1rem; /* Smaller font */
+    background:#ca8a04;
+    color: white;
+    border: none;
+    border-radius: 20px; /* Smaller border radius */
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 180px; /* Reduced width for homepage button */
+    text-decoration: none;
+}
+
+/* Special styling for form buttons */
+.auth-form .cta-button {
+    width: 100%; /* Full width for form buttons */
+    margin-bottom: 1rem;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(19, 2, 2, 0.4);
+}
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("https://cdn.pixabay.com/photo/2017/06/06/22/46/mediterranean-cuisine-2378758_1280.jpg") center/cover;
+}
+
+.auth-form {
+    background: rgb(15, 15, 15);
+    opacity: 0.5;
+    padding: 1.5rem; /* Reduced padding */
+    border-radius: 15px; /* Smaller border radius */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    width: 100%;
+    max-width: 320px; /* Decreased from 400px */
+    color: white;
+    margin: 0 auto; /* Center the form */
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem; /* Reduced margin */
+    font-size: 1.6rem; /* Smaller heading */
+}
+
+.input-group {
+    margin-bottom: 1.2rem; /* Reduced margin */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 0.6rem; /* Reduced padding */
+    border: 1px solid #eee; /* Thinner border */
+    border-radius: 6px; /* Smaller border radius */
+    transition: border-color 0.3s;
+    font-size: 0.95rem; /* Slightly smaller font */
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #151315;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #da7f24;
+    border: none;
+    color: white;
+    padding: 1rem;
+    border-radius: 30px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 0 auto; /* Changed from 15% auto to 0 auto */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px; /* Add max-width for better control */
+    border-radius: 10px; /* Rounded corners */
+    position: relative; /* Added for better positioning */
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+.explore-btn {
+    background-color:#ca8a04;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.explore-btn:hover {
+    background-color: #ca8a04;
+    transform: scale(1.1);
+}
+
+.explore-btn:active {
+    transform: scale(1);
+}
+
+/* Guest login button styles */
+.guest-button {
+    padding: 0.8rem 1.5rem; /* Reduced padding */
+    font-size: 1rem; /* Smaller font */
+    background: transparent;
+    color: white;
+    border: 1px solid #ca8a04; /* Thinner border */
+    border-radius: 20px; /* Smaller border radius */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100%;
+    margin-bottom: 0.8rem; /* Reduced margin */
+}
+
+.guest-button:hover {
+    background-color: rgba(202, 138, 4, 0.2);
+}
+
+/* Divider styles */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
+    margin: 1rem 0; /* Reduced margin */
+    font-size: 0.9rem; /* Smaller font */
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.divider::before {
+    margin-right: 0.5rem;
+}
+
+.divider::after {
+    margin-left: 0.5rem;
+}
+
+/* Media Queries for Auth Forms */
+/* Extra Small Devices (phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .auth-form {
+        max-width: 280px;
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .cta-button,
+    .guest-button {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .divider {
+        margin: 0.8rem 0;
+        font-size: 0.8rem;
+    }
+}
+
+/* Small Devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-form {
+        max-width: 300px;
+        padding: 1.3rem;
+    }
+
+    .auth-form h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .auth-form {
+        max-width: 340px;
+        padding: 1.6rem;
+    }
+
+    .auth-form h2 {
+        font-size: 1.7rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.65rem;
+    }
+}
+
+/* Large Devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .auth-form {
+        max-width: 360px;
+        padding: 1.8rem;
+    }
+
+    .auth-form h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Extra Large Devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .auth-form {
+        max-width: 380px;
+        padding: 2rem;
+    }
+
+    .auth-form h2 {
+        font-size: 1.9rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .input-group {
+        margin-bottom: 1.4rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+}
+
+/* Specific adjustments for 320px screens */
+@media (width: 320px) {
+    .modal-content {
+        margin: 15% auto; /* Center vertically */
+        width: 85%; /* Wider relative width */
+        max-width: 280px; /* Control maximum width */
+        padding: 15px; /* Adequate padding */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 250px;
+        padding: 0.9rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.7rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.45rem;
+        font-size: 0.85rem;
+        height: 34px; /* Control height */
+    }
+
+    /* Increase space between modal and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.85rem;
+        height: 36px; /* Control height */
+        margin-top: 0.8rem; /* Add space above buttons */
+        margin-bottom: 0.8rem; /* Add space below buttons */
+    }
+
+    /* Center modal in container */
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.8rem 0;
+        font-size: 0.8rem;
+    }
+}
+
+/* Specific adjustments for 375px screens (iPhone 6/7/8/X) */
+@media (width: 375px) {
+    .modal-content {
+        margin: 0 auto; /* Center modal */
+        width: 85%; /* Slightly narrower */
+        max-width: 320px; /* Control maximum width */
+        padding: 20px 16px 30px 16px; /* More padding at bottom */
+        border-radius: 10px; /* Smoother corners */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        position: absolute; /* Absolute positioning */
+        top: 50%; /* Position at 50% from top */
+        left: 50%; /* Position at 50% from left */
+        transform: translate(-50%, -50%); /* Center precisely */
+    }
+
+    .auth-form {
+        max-width: 280px;
+        padding: 1rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem; /* Increased spacing */
+        text-align: center; /* Ensure centered */
+    }
+
+    .input-group {
+        margin-bottom: 1.2rem; /* Increased spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem; /* Increased spacing */
+        display: block; /* Ensure proper spacing */
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.55rem;
+        font-size: 0.9rem;
+        height: 38px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+        margin-bottom: 0.5rem; /* Add space after inputs */
+    }
+
+    /* Increase space between modal and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.2rem;
+        font-size: 0.9rem;
+        height: 40px;
+        margin-top: 2.5rem; /* Greatly increased space above buttons */
+        margin-bottom: 2.5rem; /* Greatly increased space below buttons */
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    /* Center modal in container */
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0; /* Remove padding */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 2.5rem 0; /* Greatly increased spacing for divider */
+        font-size: 0.85rem;
+        text-align: center; /* Ensure centered */
+    }
+
+    /* Ensure proper spacing for form elements */
+    .auth-form > * {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Ensure auth container is properly centered */
+    .auth-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0; /* Remove padding */
+    }
+}
+
+/* Specific adjustments for 425px screens */
+@media (width: 425px) {
+    .modal-content {
+        margin: 10% auto; /* Center vertically */
+        width: 80%; /* Wider relative width */
+        max-width: 360px; /* Control maximum width */
+        padding: 16px; /* Adequate padding */
+        border-radius: 12px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 300px;
+        padding: 1.1rem;
+        margin: 0 auto; /* Center horizontally */
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .input-group {
+        margin-bottom: 0.9rem; /* Reduced spacing */
+    }
+
+    .input-group label {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        padding: 0.55rem;
+        font-size: 0.9rem;
+        height: 38px; /* Control height */
+    }
+
+    /* Increase space between modal and buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.2rem;
+        font-size: 0.9rem;
+        height: 40px; /* Control height */
+        margin-top: 1rem; /* Add space above buttons */
+        margin-bottom: 1rem; /* Add space below buttons */
+    }
+
+    /* Center modal in container */
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 1rem 0;
+        font-size: 0.9rem;
+    }
+}
+
+/* Media Queries for Modal Content */
+@media (max-width: 575.98px) {
+    .modal-content {
+        width: 90%;
+        max-width: 300px;
+        margin: 30% auto;
+        padding: 15px;
+    }
+
+    .close-btn {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .modal-content {
+        width: 85%;
+        max-width: 400px;
+        margin: 20% auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .modal-content {
+        margin: 15% auto;
+    }
+}
+
+/* Specific media query for exactly 768px screen */
+@media (width: 768px) {
+    .modal-content {
+        margin: 6% auto; /* Positioned higher on screen */
+        width: 70%; /* Narrower width */
+        max-width: 420px; /* Smaller max-width */
+        padding: 14px; /* Further reduced padding */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 290px; /* Smaller width */
+        padding: 1.1rem; /* Further reduced padding */
+        margin: 0 auto; /* Ensure centered */
+    }
+
+    /* Ensure modal is fully visible */
+    .modal {
+        padding: 8px; /* Add padding around modal */
+    }
+
+    /* Adjust form elements to fit without scrolling */
+    .input-group {
+        margin-bottom: 0.8rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.5rem; /* Further reduced padding */
+        height: 36px; /* Control input height */
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem; /* Smaller heading */
+        margin-bottom: 1rem; /* Further reduced margin */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.6rem 1.2rem; /* Reduced padding */
+        height: 38px; /* Control button height */
+        font-size: 0.9rem; /* Smaller font */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.8rem 0; /* Reduced margin */
+        font-size: 0.85rem; /* Smaller font */
+    }
+}
+
+/* Specific media query for 765px screen */
+@media (width: 765px) {
+    .modal-content {
+        margin: 5% auto; /* Positioned higher on screen */
+        padding: 14px; /* Further reduced padding */
+        width: 75%; /* Slightly narrower */
+        max-width: 440px; /* Ensure not too wide */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 290px; /* Further narrower */
+        padding: 1.1rem; /* Further reduced padding */
+        margin: 0 auto; /* Ensure centered */
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem; /* Smaller heading */
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+    .input-group {
+        margin-bottom: 0.8rem; /* Further reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.5rem; /* Reduced padding */
+    }
+
+    /* Ensure modal is fully visible */
+    .modal {
+        padding: 8px; /* Add padding around modal */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.6rem 1.2rem; /* Reduced padding */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.8rem 0; /* Reduced margin */
+    }
+}
+
+/* Specific media query for 1024px screen */
+@media (width: 1024px) {
+    .modal-content {
+        margin: 5% auto; /* Positioned higher on screen */
+        width: 65%; /* Narrower width */
+        max-width: 450px; /* Smaller max-width */
+        padding: 16px; /* Reduced padding */
+        border-radius: 10px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 310px; /* Smaller width */
+        padding: 1.2rem; /* Reduced padding */
+        margin: 0 auto; /* Ensure centered */
+    }
+
+    /* Ensure modal is fully visible */
+    .modal {
+        padding: 10px; /* Add padding around modal */
+    }
+
+    /* Adjust form elements to fit without scrolling */
+    .auth-form h2 {
+        font-size: 1.5rem; /* Smaller heading */
+        margin-bottom: 1rem; /* Reduced margin */
+    }
+
+    .input-group {
+        margin-bottom: 0.9rem; /* Reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.55rem; /* Reduced padding */
+        height: 38px; /* Control input height */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.65rem 1.3rem; /* Reduced padding */
+        height: 40px; /* Control button height */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 0.9rem 0; /* Reduced margin */
+    }
+}
+
+/* Specific media query for 1440px screen */
+@media (width: 1440px) {
+    .modal-content {
+        margin: 4% auto; /* Positioned higher on screen */
+        width: 60%; /* Narrower width */
+        max-width: 480px; /* Smaller max-width */
+        padding: 18px; /* Reduced padding */
+        border-radius: 12px; /* Smoother corners */
+    }
+
+    .auth-form {
+        max-width: 330px; /* Smaller width */
+        padding: 1.3rem; /* Reduced padding */
+        margin: 0 auto; /* Ensure centered */
+    }
+
+    /* Ensure modal is fully visible */
+    .modal {
+        padding: 12px; /* Add padding around modal */
+    }
+
+    /* Adjust form elements to fit without scrolling */
+    .auth-form h2 {
+        font-size: 1.6rem; /* Smaller heading */
+        margin-bottom: 1.1rem; /* Reduced margin */
+    }
+
+    .input-group {
+        margin-bottom: 1rem; /* Reduced spacing */
+    }
+
+    .input-group input {
+        padding: 0.6rem; /* Reduced padding */
+        height: 40px; /* Control input height */
+    }
+
+    /* Adjust buttons */
+    .cta-button,
+    .guest-button {
+        padding: 0.7rem 1.4rem; /* Reduced padding */
+        height: 42px; /* Control button height */
+    }
+
+    /* Adjust divider */
+    .divider {
+        margin: 1rem 0; /* Reduced margin */
+    }
+}
+
+/* Media Queries for Landing Page */
+@media (max-width: 575.98px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero {
+        padding: 30px 15px;
+    }
+
+    .nav {
+        padding: 0.8rem 1rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-links a {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .hero-content {
+        gap: 25px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .hero h1 {
+        font-size: 3rem;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero-content {
+        gap: 30px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-content {
+        gap: 50px;
+    }
+}
